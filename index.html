@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="todos"></ul>
+
+    <form id="formOne">
+        <input type="text" name="todo">
+        <input type="submit" id="add" value="Add Todo">
+    </form>
+    <form id="formTwo">
+        <input type="submit" id="removeAll" value="Remove All">
+    </form>
+
+
+    <scripT>
+        const formOne = document.getElementById('formOne');
+        const formTwo = document.getElementById('formTwo');
+
+        const todoList = document.getElementById('todos');
+        const input = document.querySelector("[name='todo']");
+
+        const existingTodos = JSON.parse(localStorage.getItem('todos')) || [];
+
+        const todoData = [];
+        
+        existingTodos.forEach(todo => {
+            addTodo(todo);
+        })
+
+        function addTodo(todoText) {
+            todoData.push(todoText);
+            const li = document.createElement('li');
+            li.innerHTML = todoText;
+            todoList.appendChild(li);
+            localStorage.setItem('todos', JSON.stringify(todoData));
+            input.value = '';
+        }
+
+        formOne.onsubmit = (event) => {
+            event.preventDefault();
+            addTodo(input.value);
+        }
+
+        formTwo.onsubmit = (event) => {
+            event.preventDefault();
+            window.localStorage.removeItem('todos');
+            while (todoList.firstChild) {
+                todoList.removeChild(todoList.lastChild);
+            };
+        }
+    </scripT>
+
+</body>
+</html>
