@@ -8,7 +8,7 @@
 </head>
 <body>
     <ul id="todos"></ul>
-
+    
     <form id="formOne">
         <input type="text" name="todo">
         <input type="submit" id="add" value="Add Todo">
@@ -16,45 +16,6 @@
     <form id="formTwo">
         <input type="submit" id="removeAll" value="Remove All">
     </form>
-
-
-    <scripT>
-        const formOne = document.getElementById('formOne');
-        const formTwo = document.getElementById('formTwo');
-
-        const todoList = document.getElementById('todos');
-        const input = document.querySelector("[name='todo']");
-
-        const existingTodos = JSON.parse(localStorage.getItem('todos')) || [];
-
-        const todoData = [];
-        
-        existingTodos.forEach(todo => {
-            addTodo(todo);
-        })
-
-        function addTodo(todoText) {
-            todoData.push(todoText);
-            const li = document.createElement('li');
-            li.innerHTML = todoText;
-            todoList.appendChild(li);
-            localStorage.setItem('todos', JSON.stringify(todoData));
-            input.value = '';
-        }
-
-        formOne.onsubmit = (event) => {
-            event.preventDefault();
-            addTodo(input.value);
-        }
-
-        formTwo.onsubmit = (event) => {
-            event.preventDefault();
-            window.localStorage.removeItem('todos');
-            while (todoList.firstChild) {
-                todoList.removeChild(todoList.lastChild);
-            };
-        }
-    </scripT>
-
+    <script src="dist/main.js"></script>
 </body>
 </html>
